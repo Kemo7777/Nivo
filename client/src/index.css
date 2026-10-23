@@ -1,0 +1,272 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* Tailwind v4 is CSS-first: no tailwind.config / postcss / autoprefixer.
+   Dark mode is class-based (add `dark` on <html>/<body>); shadcn/ui token set. */
+@custom-variant dark (&:is(.dark *));
+
+/* ── NIVO design tokens ──────────────────────────────────────────────────────
+   Palette lifted from the video: warm cream page, white cards, a sand band,
+   near-black ink, hairline borders, an olive accent for primary actions and a
+   deep forest footer. Values are raw hex so the exact video colours survive. */
+:root {
+  --radius: 0.25rem;
+
+  --nivo-cream: #f9f8f4;
+  --nivo-card: #ffffff;
+  --nivo-sand: #f3f1ea;
+  --nivo-ink: #16130f;
+  --nivo-muted: #6f6a61;
+  --nivo-line: #e5e1d8;
+  --nivo-olive: #4a5d3b;
+  --nivo-olive-dark: #3b4a2f;
+  --nivo-forest: #0b0f09;
+
+  --background: var(--nivo-cream);
+  --foreground: var(--nivo-ink);
+  --card: var(--nivo-card);
+  --card-foreground: var(--nivo-ink);
+  --primary: var(--nivo-olive);
+  --primary-foreground: #f9f8f4;
+  --secondary: var(--nivo-sand);
+  --secondary-foreground: var(--nivo-ink);
+  --muted: var(--nivo-sand);
+  --muted-foreground: var(--nivo-muted);
+  --accent: var(--nivo-sand);
+  --accent-foreground: var(--nivo-ink);
+  --destructive: #a33a2a;
+  --destructive-foreground: #f9f8f4;
+  --border: var(--nivo-line);
+  --input: var(--nivo-line);
+  --ring: var(--nivo-olive);
+}
+
+.dark {
+  --background: var(--nivo-forest);
+  --foreground: #f3f1ea;
+  --card: #14180f;
+  --card-foreground: #f3f1ea;
+  --primary: #8fa87a;
+  --primary-foreground: #0b0f09;
+  --secondary: #1c2116;
+  --secondary-foreground: #f3f1ea;
+  --muted: #1c2116;
+  --muted-foreground: #a8a396;
+  --accent: #1c2116;
+  --accent-foreground: #f3f1ea;
+  --destructive: #c0563f;
+  --destructive-foreground: #0b0f09;
+  --border: #2a3020;
+  --input: #2a3020;
+  --ring: #8fa87a;
+}
+
+/* Map design tokens to Tailwind's theme so utilities (bg-primary, border-border,
+   rounded-lg, …) resolve. @theme inline references the vars above unwrapped. */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-cream: var(--nivo-cream);
+  --color-sand: var(--nivo-sand);
+  --color-ink: var(--nivo-ink);
+  --color-line: var(--nivo-line);
+  --color-olive: var(--nivo-olive);
+  --color-olive-dark: var(--nivo-olive-dark);
+  --color-forest: var(--nivo-forest);
+
+  --font-display: "Amiri", "Noto Naskh Arabic", Georgia, serif;
+  --font-sans: "IBM Plex Sans Arabic", "Segoe UI", system-ui, sans-serif;
+
+  --radius-sm: 2px;
+  --radius-md: 3px;
+  --radius-lg: 4px;
+  --radius-xl: 6px;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  h1,
+  h2,
+  h3,
+  .font-display {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+  /* Arabic body copy breathes: the video's paragraphs are generously leaded. */
+  p {
+    line-height: 1.9;
+  }
+  ::selection {
+    background: var(--nivo-olive);
+    color: #f9f8f4;
+  }
+}
+
+@layer components {
+  /* Latin wordmark — letterspaced, as in the video's header. */
+  .wordmark {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+  }
+  /* Small letterspaced label above a section title. */
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--nivo-muted);
+  }
+  .hairline {
+    border-color: var(--nivo-line);
+  }
+  .container-nivo {
+    width: 100%;
+    max-width: 1240px;
+    margin-inline: auto;
+    padding-inline: 20px;
+  }
+  @media (min-width: 768px) {
+    .container-nivo {
+      padding-inline: 40px;
+    }
+  }
+}
+
+/* ── Motion ──────────────────────────────────────────────────────────────────
+   Every animation below is disabled wholesale under prefers-reduced-motion. */
+@keyframes nivo-rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes nivo-kenburns {
+  from {
+    transform: scale(1.02) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.12) translate3d(0, -1.5%, 0);
+  }
+}
+
+@keyframes nivo-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes nivo-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-rise {
+  animation: nivo-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.animate-kenburns {
+  animation: nivo-kenburns 22s ease-out both alternate infinite;
+}
+.animate-fade {
+  animation: nivo-fade 0.5s ease-out both;
+}
+
+/* Scroll reveal: the element starts hidden and .is-visible is added by the
+   IntersectionObserver in Reveal.tsx. The hidden state is scoped to `.js` (set
+   on <html> by an inline script) so that if the bundle never runs the content
+   is simply visible rather than permanently invisible. */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.js .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Infinite ticker. The track holds the content twice, so -50% loops seamlessly. */
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: nivo-marquee 34s linear infinite;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* Image hover: a slow scale inside a clipped frame. */
+.img-zoom {
+  overflow: hidden;
+}
+.img-zoom img {
+  transition: transform 1.1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.img-zoom:hover img {
+  transform: scale(1.04);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-rise,
+  .animate-kenburns,
+  .animate-fade,
+  .marquee-track {
+    animation: none !important;
+  }
+  .js .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .img-zoom img {
+    transition: none;
+  }
+  .img-zoom:hover img {
+    transform: none;
+  }
+}
