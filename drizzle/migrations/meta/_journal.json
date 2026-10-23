@@ -1,0 +1,41 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1792711907904,
+      "tag": "0000_overconfident_naoko",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1792711909769,
+      "tag": "0001_nivo_reference_data",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1792712312346,
+      "tag": "0002_foamy_kingpin",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1792755444266,
+      "tag": "0003_burly_naoko",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1792755748780,
+      "tag": "0004_backfill_product_details",
+      "breakpoints": true
+    }
+  ]
+}
